@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile grid test</title>
+    <link rel="stylesheet" href="../assets/css/jet.min.css">
+    <link rel="stylesheet" href="../assets/css/all.min.css">
+    <script src="magic-jet.js" type="module"></script>
+    <script src="jet-animation.js" type="module"></script>
+    <style>
+@charset "UTF-8";
+
+*:not(head, head *, style, script, svg, svg *),
+*:not(head, head *, style, script, svg, svg *)::before,
+*:not(head, head *, style, script, svg, svg *)::after {
+  all: unset;
+  box-sizing: border-box;
+}
+
+:root {
+  --bgLow: #0c1d13;
+  --bgMid: #114126;
+  --bgHigh: #0e9564;
+  --accent: #00e074;
+  --pop: #21fde7;
+  --textLow: #444;
+  --textHigh: #ccc;
+}
+
+body,
+html {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: gray black;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin: 0;
+  background-color: var(--bgLow);
+  font: normal normal 400 16px / 150% sans-serif;
+  color: var(--textHigh);
+}
+
+hr {
+  box-sizing: content-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 110%;
+  font-size: 300%;
+  text-transform: capitalize;
+}
+
+article {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sectionWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.sectionWrapper > section {
+  width: 100%;
+  max-width: 1440px;
+}
+
+.parallax-section[data-parallax="background"] {
+  min-height: 100vh;
+}
+
+#mpxParallax > input {
+  display: none;
+}
+
+#mpxParallax > #bgOff:checked ~ #mpxMoveWrapper {
+  background-image: unset;
+  background-size: unset;
+  animation: unset;
+}
+
+#mpxParallax > #bgOff:checked ~ #mpxMoveWrapper::after {
+  all: unset;
+}
+
+#mpxParallax #mpxMoveWrapper {
+  position: relative;
+  --c: var(--pop);
+  background-color: var(--bgLow);
+  background-image: radial-gradient(4px 100px at 0px 235px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 235px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 117.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 252px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 252px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 126px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 150px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 150px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 75px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 253px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 253px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 126.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 204px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 204px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 102px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 134px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 134px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 67px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 179px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 179px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 89.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 299px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 299px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 149.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 215px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 215px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 107.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 281px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 281px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 140.5px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 158px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 158px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 79px, var(--c) 100%, #0000 150%),
+    radial-gradient(4px 100px at 0px 210px, var(--c), #0000),
+    radial-gradient(4px 100px at 300px 210px, var(--c), #0000),
+    radial-gradient(1.5px 1.5px at 150px 105px, var(--c) 100%, #0000 150%);
+  background-size: 300px 235px, 300px 235px, 300px 235px, 300px 252px,
+    300px 252px, 300px 252px, 300px 150px, 300px 150px, 300px 150px, 300px 253px,
+    300px 253px, 300px 253px, 300px 204px, 300px 204px, 300px 204px, 300px 134px,
+    300px 134px, 300px 134px, 300px 179px, 300px 179px, 300px 179px, 300px 299px,
+    300px 299px, 300px 299px, 300px 215px, 300px 215px, 300px 215px, 300px 281px,
+    300px 281px, 300px 281px, 300px 158px, 300px 158px, 300px 158px, 300px 210px,
+    300px 210px, 300px 210px;
+  animation: rain 150s linear infinite;
+  z-index: 1;
+}
+
+@keyframes rain {
+  0% {
+    background-position: 0px 220px, 3px 220px, 151.5px 337.5px, 25px 24px,
+      28px 24px, 176.5px 150px, 50px 16px, 53px 16px, 201.5px 91px, 75px 224px,
+      78px 224px, 226.5px 350.5px, 100px 19px, 103px 19px, 251.5px 121px,
+      125px 120px, 128px 120px, 276.5px 187px, 150px 31px, 153px 31px,
+      301.5px 120.5px, 175px 235px, 178px 235px, 326.5px 384.5px, 200px 121px,
+      203px 121px, 351.5px 228.5px, 225px 224px, 228px 224px, 376.5px 364.5px,
+      250px 26px, 253px 26px, 401.5px 105px, 275px 75px, 278px 75px,
+      426.5px 180px;
+  }
+
+  to {
+    background-position: 0px 6800px, 3px 6800px, 151.5px 6917.5px, 25px 13632px,
+      28px 13632px, 176.5px 13758px, 50px 5416px, 53px 5416px, 201.5px 5491px,
+      75px 17175px, 78px 17175px, 226.5px 17301.5px, 100px 5119px, 103px 5119px,
+      251.5px 5221px, 125px 8428px, 128px 8428px, 276.5px 8495px, 150px 9876px,
+      153px 9876px, 301.5px 9965.5px, 175px 13391px, 178px 13391px,
+      326.5px 13540.5px, 200px 14741px, 203px 14741px, 351.5px 14848.5px,
+      225px 18770px, 228px 18770px, 376.5px 18910.5px, 250px 5082px,
+      253px 5082px, 401.5px 5161px, 275px 6375px, 278px 6375px, 426.5px 6480px;
+  }
+}
+
+#mpxParallax #mpxMoveWrapper::before {
+  width: calc(100% + 40px);
+  height: 100px;
+  content: "";
+  z-index: 1;
+  background-image: linear-gradient(
+    to right,
+    var(--bgLow) 0%,
+    var(--bgLow) 20%,
+    var(--bgMid) 20%,
+    var(--bgMid) 40%,
+    var(--bgHigh) 40%,
+    var(--bgHigh) 60%,
+    var(--accent) 60%,
+    var(--accent) 80%,
+    var(--pop) 80%,
+    var(--pop) 100%
+  );
+}
+
+#mpxParallax #mpxMoveWrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-image: radial-gradient(
+    ellipse 1.5px 2px at 1.5px 50%,
+    #0000 0,
+    #0000 90%,
+    #000 100%
+  );
+  background-size: 25px 8px;
+  z-index: -1;
+}
+
+#mpxParallax #mpxMoveWrapper > button {
+  width: 300px;
+  height: 59px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bgLow);
+  color: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 0;
+  z-index: 5;
+}
+
+#mpxParallax #mpxMoveWrapper > button label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#mpxParallax #mpxMoveWrapper > button:first-of-type {
+  margin-right: 320px;
+  margin-top: 20px;
+}
+
+#mpxParallax #mpxMoveWrapper > button:last-of-type {
+  margin-left: 320px;
+  margin-top: 20px;
+}
+
+#mpxParallax #mpxMove,
+#mpxParallax #mpxZoom,
+#mpxParallax #mpxBackground {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 0;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) picture {
+  position: absolute;
+  width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+#mpxParallax #mpxMove picture:first-of-type {
+  top: 50px;
+  left: -60px;
+  backface-visibility: visible; /* force gpu */
+}
+
+#mpxParallax #mpxMove picture:last-of-type {
+  bottom: 50px;
+  left: 38.5%;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) picture img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure {
+  position: relative;
+  width: 50%;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 30px;
+  gap: 20px;
+  border: 1px solid var(--accent);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 10px;
+  z-index: 5;
+}
+
+#mpxParallax #mpxMove figure {
+  background-color: rgba(0, 0, 0, 0.001);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  position: relative;
+  bottom: 20px;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure :is(h1, h2, h3) {
+  color: white;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure figcaption {
+  padding-left: 30px;
+  border-left: 1px solid white;
+}
+
+#mpxParallax .pill {
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent);
+  background-color: var(--bgMid);
+  padding: 5px 15px;
+  z-index: 4;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure .pill {
+  position: absolute;
+  top: -19px;
+  right: 30px;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 50%;
+  z-index: 3;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside::before {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 20px solid var(--pop);
+  mix-blend-mode: overlay;
+  border-radius: 20px;
+  content: "";
+  z-index: 4;
+  animation: huerotate 5s linear infinite;
+}
+
+@keyframes huerotate {
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside .pill {
+  position: absolute;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside .pill:first-of-type {
+  top: -19px;
+  left: 10px;
+}
+
+#mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside .pill:last-of-type {
+  bottom: -9px;
+  right: 10px;
+}
+
+#bgOff:checked ~ #mpxZoomWrapper {
+  background-image: unset;
+  background-blend-mode: unset;
+  animation: unset;
+}
+
+#bgOff:checked ~ #mpxZoomWrapper::before,
+#bgOff:checked ~ #mpxZoomWrapper::after {
+  all: unset;
+}
+
+#mpxParallax #mpxZoomWrapper {
+  background-color: var(--bgMid);
+  background-image: radial-gradient(
+      ellipse at 0% 0%,
+      rgba(138, 43, 226, 0.8) 0%,
+      rgba(138, 43, 226, 0) 60%
+    ),
+    radial-gradient(
+      ellipse at 0% 20%,
+      rgba(0, 191, 255, 0.7) 0%,
+      rgba(0, 191, 255, 0) 70%
+    ),
+    radial-gradient(
+      ellipse at 30% 20%,
+      rgba(50, 205, 50, 0.6) 0%,
+      rgba(50, 205, 50, 0) 65%
+    ),
+    linear-gradient(135deg, #000000 0%, #0a0520 100%);
+  background-blend-mode: overlay, screen, hard-light;
+  overflow: hidden;
+  animation: aurora-drift 25s infinite alternate ease-in-out;
+}
+
+#mpxParallax #mpxZoomWrapper::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 60px
+    );
+  animation: grid-shift 20s linear infinite;
+}
+
+#mpxParallax #mpxZoomWrapper::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    transparent 70%,
+    rgba(10, 5, 32, 0.9) 100%
+  );
+  animation: aurora-pulse 8s infinite alternate;
+}
+
+@keyframes aurora-drift {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%;
+    filter: brightness(1);
+  }
+  50% {
+    background-position: -10% -5%, 5% 10%, 0% 15%;
+    filter: brightness(1.2);
+  }
+  100% {
+    background-position: 5% 10%, -10% -5%, 15% 0%;
+    filter: brightness(1);
+  }
+}
+
+@keyframes grid-shift {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes aurora-pulse {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+#mpxParallax #mpxZoom {
+  padding: 225px 0;
+}
+
+#mpxParallax #mpxZoom figure {
+  order: 2;
+  margin-right: unset;
+  margin-left: 30px;
+  border: 1px solid var(--pop);
+}
+
+#mpxParallax #mpxZoom aside .pill {
+  border: 1px solid var(--pop);
+}
+
+#mpxParallax #mpxZoom picture:first-of-type {
+  width: 100%;
+  max-width: 300px;
+  top: 100px;
+  right: -20px;
+}
+
+#mpxParallax #mpxZoom picture:last-of-type {
+  bottom: 85px;
+  right: 20%;
+}
+
+#mpxParallax #mpxBackgroundWrapper {
+  position: relative;
+  padding: 0;
+}
+
+#mpxParallax #mpxBackgroundWrapper::before {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: conic-gradient(
+    from 45deg at 50% 50%,
+    #0e9564,
+    #6b9538,
+    #a38f02,
+    #cc8522,
+    #e77e5c,
+    #f17f97,
+    #e98bd1,
+    #d09fff,
+    #a7b8ff,
+    #6cd3ff,
+    #00ecff,
+    #21fde7
+  );
+  background-attachment: fixed;
+  mix-blend-mode: overlay;
+  content: "";
+  z-index: 1;
+}
+
+#mpxParallax #mpxBackground {
+  overflow: hidden;
+}
+
+.parallax-section[data-parallax="background"] .parallax-bg {
+  position: absolute;
+  inset: 0;
+  background: center / cover no-repeat;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#mpxParallax #mpxBackground {
+  padding: 300px 0;
+  flex-direction: column;
+  align-items: center;
+  max-width: unset;
+}
+
+#mpxParallax #mpxBackground figure {
+  background-color: rgba(12, 29, 19, 0.8);
+  max-width: 750px;
+  margin-right: unset;
+}
+
+@media (max-width: 1600px) {
+  #mpxParallax #mpxMove picture:first-of-type {
+    left: 30px;
+  }
+  #mpxParallax #mpxZoom picture:first-of-type {
+    right: 40px;
+  }
+  #mpxParallax
+    :is(#mpxMove, #mpxZoom, #mpxBackground)
+    aside
+    .pill:first-of-type {
+    left: 40px;
+  }
+}
+
+@media (max-width: 1300px) {
+  #mpxParallax #mpxMove picture:first-of-type {
+    left: 70px;
+    top: 40px;
+  }
+  #mpxParallax
+    :is(#mpxMove, #mpxZoom, #mpxBackground)
+    aside
+    .pill:first-of-type {
+    left: 80px;
+  }
+}
+
+@media (max-width: 800px) {
+  #mpxParallax #mpxMove,
+  #mpxParallax #mpxZoom,
+  #mpxParallax #mpxBackground {
+    flex-direction: column;
+  }
+  #mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure {
+    width: 100%;
+    margin-right: unset;
+    margin-left: unset;
+  }
+  #mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) aside {
+    width: 100%;
+    top: 40px;
+  }
+  #mpxParallax
+    :is(#mpxMove, #mpxZoom, #mpxBackground)
+    aside
+    .pill:last-of-type {
+    right: -100px;
+  }
+  #mpxParallax #mpxMove picture:last-of-type {
+    left: 60%;
+  }
+  #mpxParallax
+    :is(#mpxMove, #mpxZoom, #mpxBackground)
+    aside
+    .pill:first-of-type {
+    left: 150px;
+  }
+  #mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure .pill {
+    right: unset;
+    align-self: center;
+    top: -30px;
+  }
+  #mpxParallax #mpxZoom picture:last-of-type {
+    right: unset;
+  }
+  #mpxParallax #mpxZoom aside .pill:first-of-type {
+    left: unset;
+  }
+  #mpxParallax #mpxZoom aside .pill:last-of-type {
+    display: none;
+  }
+  #mpxParallax #mpxBackground figure {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 660px) {
+  #mpxParallax #mpxMoveWrapper > button:first-of-type {
+    margin-right: unset;
+  }
+  #mpxParallax #mpxMoveWrapper > button:last-of-type {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  #mpxParallax :is(#mpxMove, #mpxZoom, #mpxBackground) figure :is(h1, h2, h3) {
+    font-size: 200%;
+  }
+  #mpxParallax
+    :is(#mpxMove, #mpxZoom, #mpxBackground)
+    aside
+    .pill:last-of-type {
+    right: -200px;
+  }
+  #mpxParallax #mpxZoom picture:first-of-type {
+    right: unset;
+  }
+}
+
+@media (pointer: coarse) {
+  #mpxMoveWrapper {
+    background-image: unset !important;
+    background-size: unset !important;
+    animation: unset !important;
+  }
+  #mpxMoveWrapper::after {
+    all: unset !important;
+  }
+}
+
+@media (pointer: coarse) {
+  #mpxZoomWrapper {
+    background-image: unset !important;
+    background-blend-mode: unset !important;
+    animation: unset !important;
+  }
+
+  #mpxZoomWrapper::before,
+  #mpxZoomWrapper::after {
+    all: unset !important;
+  }
+}
+
+@media (pointer: coarse) {
+  #mpxParallax #mpxMoveWrapper > button:first-of-type {
+    display: none !important;
+  }
+  #mpxParallax #mpxMoveWrapper > button:last-of-type {
+    display: none !important;
+  }
+}
+
+    </style>
+</head>
+
+<body>
+<article id="mpxParallax">
+
+  <input type="radio" id="bgOff" value="bgOff" name="bgOff">
+  <input type="radio" id="bgOn" value="bgOn" name="bgOff" checked>
+
+  <header id="mpxMoveWrapper" class="sectionWrapper parallax-section" data-parallax="move">
+
+    <button type="button">
+      <label for="bgOff">
+        Disable Animated Backgrounds
+      </label>
+    </button>
+
+    <button type="button">
+      <label for="bgOn">
+        Enable Animated Backgrounds
+      </label>
+    </button>
+
+    <section id="mpxMove">
+
+      <picture class="parallax-layer" data-parallax-item data-speed="1" data-axis="x">
+        <img src="https://picsum.photos/id/112/600/600" alt="" width="600" height="600">
+      </picture>
+
+      <picture class="parallax-layer" data-parallax-item data-speed="-1" data-axis="x">
+        <img src="https://picsum.photos/id/227/600/600" alt="" width="600" height="600">
+      </picture>
+
+      <figure class="parallax-layer" data-parallax-item data-speed="0.2">
+
+        <h1>
+          All-in-one Parallax Kit
+        </h1>
+
+        <figcaption>
+          All-in-one parallax kit with three different parallax scroll modes, and a mousemove parallax mode. This first section is the "move" mode, which pushes and pulls elements smoothly and gently as you scroll the page. Note these effects work best when viewing this as you would a normal webpage (the viewport shouldn't be too narrow).
+        </figcaption>
+
+        <div class="parallax-layer pill" data-parallax-item data-speed="-0.4" data-axis="x">
+          <em>
+            Parallax Effects
+          </em>
+        </div>
+
+      </figure>
+
+      <aside>
+
+        <img src="https://picsum.photos/id/450/1200/800" alt="" width="1200" height="800">
+
+        <div class="parallax-layer pill" data-parallax-item data-speed="0.4" data-axis="x">
+          <em>
+            Start Scrolling
+          </em>
+        </div>
+
+        <div class="parallax-layer pill" data-parallax-item data-speed="-1" data-axis="x">
+          <em>
+            Move Effect
+          </em>
+        </div>
+
+      </aside>
+
+    </section>
+
+  </header>
+
+  <main id="mpxZoomWrapper" class="sectionWrapper parallax-section" data-parallax="zoom">
+
+    <section id="mpxZoom">
+
+      <picture class="parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="2" data-speed="0.7">
+        <img src="https://picsum.photos/id/261/1200/600" alt="" width="1200" height="600">
+      </picture>
+
+      <picture class="parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="1.8" data-speed="1.4">
+        <img src="https://picsum.photos/id/228/600/600" alt="" width="600" height="600">
+      </picture>
+
+      <figure>
+
+        <h2>
+          Parallax Zoom
+        </h2>
+
+        <figcaption>
+          All-in-one parallax kit with three different parallax scroll modes, and a mousemove parallax mode. This second section is the "zoom" mode, which zooms elements smoothly and gently as you scroll the page. Note these effects work best when viewing this as you would a normal webpage (the viewport shouldn't be too narrow).
+        </figcaption>
+
+        <div class="pill parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="2" data-speed="2.1">
+          <em>
+            Parallax Effects
+          </em>
+        </div>
+
+      </figure>
+
+      <aside class="parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="1.3" data-speed="0.7">
+
+        <img src="https://picsum.photos/id/451/1200/800" alt="" width="1200" height="800">
+
+        <div class="pill parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="3" data-speed="1.4">
+          <em>
+            Keep Scrolling
+          </em>
+        </div>
+
+        <div class="pill parallax-layer" data-parallax-item data-zoom-from="1" data-zoom-to="4" data-speed="2.1">
+          <em>
+            Zoom Effect
+          </em>
+        </div>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+  <footer class="sectionWrapper" id="mpxBackgroundWrapper">
+
+    <section id="mpxBackground" class="parallax-section" data-parallax="background" data-bg="https://picsum.photos/id/700/3840/2160" data-speed="0.6">
+
+      <figure class="parallax-layer" data-speed="2.1">
+
+        <h3>
+          Parallax Background
+        </h3>
+
+        <figcaption>
+          All-in-one parallax kit with three different parallax scroll modes, and a mousemove parallax mode. This final section is the "background" mode, which zooms and moves the background smoothly and gently as you scroll the page. Note these effects work best when viewing this as you would a normal webpage (the viewport shouldn't be too narrow).
+        </figcaption>
+
+        <div class="pill">
+          <em>
+            Parallax Effects
+          </em>
+        </div>
+
+      </figure>
+
+    </section>
+
+  </footer>
+
+</article>
+
+<script>
+/*! Unified Parallax — scroll + mousemove + SMIL (single RAF, composed transforms) */
+
+/* pararella.js */
+
+(function () {
+  "use strict";
+
+  var mq =
+    window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (mq && mq.matches) return;
+
+  var d = document,
+    w = window,
+    E = Math;
+
+  /* ===========================
+     Transform Composer (shared)
+     =========================== */
+  var XFORM = new WeakMap(); // el -> { scroll:{tx,ty,scale,hasScale}, mouse:{mx,my} }
+  var DIRTY = new Set(); // elements to write this frame
+
+  function ensureState(el) {
+    var s = XFORM.get(el);
+    if (!s) {
+      s = {
+        scroll: { tx: 0, ty: 0, scale: 1, hasScale: false },
+        mouse: { mx: 0, my: 0 }
+      };
+      XFORM.set(el, s);
+    }
+    return s;
+  }
+  function mark(el) {
+    DIRTY.add(el);
+  }
+  function writeTransformsOnce() {
+    if (!DIRTY.size) return;
+    DIRTY.forEach(function (el) {
+      var s = XFORM.get(el);
+      if (!s) return;
+      var tx = (s.scroll.tx || 0) + (s.mouse.mx || 0);
+      var ty = (s.scroll.ty || 0) + (s.mouse.my || 0);
+      var parts = [];
+      if (E.abs(tx) > 1e-6 || E.abs(ty) > 1e-6) {
+        parts.push(
+          "translate3d(" + tx.toFixed(3) + "px," + ty.toFixed(3) + "px,0)"
+        );
+      }
+      if (s.scroll.hasScale)
+        parts.push("scale(" + s.scroll.scale.toFixed(4) + ")");
+      el.style.transform = parts.join(" ") || "";
+    });
+    DIRTY.clear();
+  }
+
+  /* ===========================
+     Utilities
+     =========================== */
+  function num(v, def) {
+    var n = parseFloat(v);
+    return v == null || Number.isNaN(n) ? def : n;
+  }
+  function clamp(v, a, b) {
+    return v < a ? a : v > b ? b : v;
+  }
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+  function qsa(sel, root) {
+    return Array.prototype.slice.call((root || d).querySelectorAll(sel));
+  }
+
+  /* ===========================
+     Scroll Parallax (original math)
+     =========================== */
+  var SMOOTH = 0.12,
+    EPS_PX = 0.2,
+    EPS_SCALE = 0.001;
+  var sections = [];
+  var io = null,
+    lastScrollY = -1;
+
+  function setupSection(el) {
+    var type = (el.dataset.parallax || "move").toLowerCase();
+    var s = {
+      el: el,
+      type: type,
+      top: 0,
+      height: 0,
+      bottom: 0,
+      vh: 0,
+      active: false
+    };
+
+    if (type === "background") {
+      var bg = el.querySelector("[data-parallax-bg]");
+      if (!bg) {
+        bg = d.createElement("div");
+        bg.className = "parallax-bg";
+        bg.setAttribute("data-parallax-bg", "");
+        el.prepend(bg);
+      }
+      var src = el.dataset.bg || bg.dataset.src || "";
+      if (src) bg.style.backgroundImage = 'url("' + src + '")';
+      var sp = num(el.dataset.speed, 0.5);
+      s.bg = { el: bg, speed: clamp(sp, 0.05, 0.95), y: 0, scale: 1 };
+      ensureState(bg); // register for composition
+    } else {
+      var items = [];
+      qsa("[data-parallax-item]", el).forEach(function (node) {
+        var speed = num(
+          node.dataset.speed != null ? node.dataset.speed : el.dataset.speed,
+          0.25
+        );
+        var axis = (node.dataset.axis || "y").toLowerCase();
+        var from = num(
+          node.dataset.zoomFrom != null
+            ? node.dataset.zoomFrom
+            : node.dataset.from,
+          1
+        );
+        var to = num(
+          node.dataset.zoomTo != null ? node.dataset.zoomTo : node.dataset.to,
+          1
+        );
+        items.push({
+          el: node,
+          speed: speed,
+          axis: axis,
+          from: from,
+          to: to,
+          tx: 0,
+          ty: 0,
+          scale: from
+        });
+        ensureState(node);
+      });
+      s.items = items;
+    }
+    sections.push(s);
+  }
+
+  function measure() {
+    var vh = w.innerHeight || d.documentElement.clientHeight || 0;
+    for (var i = 0; i < sections.length; i++) {
+      var s = sections[i];
+      var r = s.el.getBoundingClientRect();
+      s.top = (w.scrollY || d.documentElement.scrollTop || 0) + r.top;
+      s.height = s.el.offsetHeight;
+      s.bottom = s.top + s.height;
+      s.vh = vh;
+
+      if (s.type === "background") {
+        var range = s.height * (1 - s.bg.speed);
+        var needed = 1 + (2 * range) / s.height; // scale to cover travel
+        s.bg.scale = E.min(3, needed + 0.02); // small safety pad
+        var st = ensureState(s.bg.el);
+        st.scroll.hasScale = true;
+        st.scroll.scale = s.bg.scale;
+        mark(s.bg.el);
+      }
+    }
+  }
+
+  function progressFor(s, y) {
+    var start = s.top - s.vh,
+      end = s.bottom,
+      span = end - start || 1;
+    return clamp((y - start) / span, 0, 1);
+  }
+
+  /* ===========================
+     Mousemove Parallax (resolver v2: wrapper → children)
+     =========================== */
+  var lX = 0,
+    lY = 0,
+    tX = 0,
+    tY = 0;
+  var friction = 1 / 30;
+  var mouseTargets = []; // [{el, speed}]
+  var mouseTargetSet = new WeakSet(); // dedupe
+
+  function mouseShouldRun() {
+    return (
+      window.matchMedia("(pointer: fine)").matches && window.innerWidth >= 1200
+    );
+  }
+
+  // Resolve actual transform nodes from a declared .parallax-layer wrapper or item.
+  // Rules:
+  // - data-mouse-target="self" → use node as-is.
+  // - [data-parallax="background"] → its [data-parallax-bg].
+  // - node is [data-parallax-bg] or [data-parallax-item] → itself.
+  // - wrapper containing items → ALL [data-parallax-item] children.
+  // - wrapper containing bg → that [data-parallax-bg].
+  // - fallback → node itself.
+  function resolveTargetsForNode(node) {
+    var list = [];
+
+    var mode = (node.getAttribute("data-mouse-target") || "").toLowerCase();
+    if (mode === "self") return [node];
+
+    if (node.matches('[data-parallax][data-parallax="background"]')) {
+      var bg = node.querySelector("[data-parallax-bg]");
+      if (bg) return [bg];
+    }
+
+    if (
+      node.hasAttribute("data-parallax-bg") ||
+      node.hasAttribute("data-parallax-item")
+    ) {
+      return [node];
+    }
+
+    var items = node.querySelectorAll("[data-parallax-item]");
+    if (items.length > 0) {
+      for (var i = 0; i < items.length; i++) list.push(items[i]);
+      return list;
+    }
+
+    var bgChild = node.querySelector("[data-parallax-bg]");
+    if (bgChild) return [bgChild];
+
+    return [node];
+  }
+
+  function collectMouseTargets() {
+    mouseTargets = [];
+    mouseTargetSet = new WeakSet();
+
+    var nodes = Array.prototype.slice.call(
+      document.querySelectorAll(".parallax-layer")
+    );
+    for (var n = 0; n < nodes.length; n++) {
+      var raw = nodes[n];
+      var speedRaw = raw.getAttribute("data-speed");
+      var wrapperSpeed = speedRaw != null ? parseFloat(speedRaw) : null;
+
+      var els = resolveTargetsForNode(raw);
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (mouseTargetSet.has(el)) continue;
+        mouseTargetSet.add(el);
+
+        // Child can override with its own data-speed; else inherit wrapper speed; else 0
+        var speed =
+          el.getAttribute("data-speed") != null
+            ? parseFloat(el.getAttribute("data-speed"))
+            : wrapperSpeed != null
+            ? wrapperSpeed
+            : 0;
+
+        mouseTargets.push({ el: el, speed: speed });
+        ensureState(el);
+      }
+    }
+  }
+
+  function initMouse() {
+    collectMouseTargets();
+
+    w.addEventListener(
+      "mousemove",
+      function (e) {
+        var cx = w.innerWidth / 2,
+          cy = w.innerHeight / 2;
+        lX = (e.clientX - cx) / cx;
+        lY = (e.clientY - cy) / cy;
+      },
+      { passive: true }
+    );
+
+    var recalc = function () {
+      collectMouseTargets(); // DOM/layout may change; re-resolve
+      if (!mouseShouldRun()) {
+        for (var i = 0; i < mouseTargets.length; i++) {
+          var t = mouseTargets[i];
+          var st = ensureState(t.el);
+          st.mouse.mx = 0;
+          st.mouse.my = 0;
+          mark(t.el);
+        }
+      }
+    };
+    w.addEventListener("resize", recalc, { passive: true });
+    // In case you dynamically add/remove items:
+    d.addEventListener("DOMContentLoaded", recalc);
+  }
+
+  /* ===========================
+     SMIL dasharray → JS (unchanged)
+     =========================== */
+  function initSmil() {
+    var svgList = qsa(".lineAnim");
+    if (!svgList.length) return;
+    var animations = [];
+    var t0 = performance.now();
+
+    svgList.forEach(function (svg) {
+      svg.querySelectorAll("animate").forEach(function (animEl) {
+        var el = animEl.parentNode;
+        var values = animEl
+          .getAttribute("values")
+          .split(";")
+          .map(function (seg) {
+            return seg.trim().split(",").map(Number);
+          });
+        var keyTimes = animEl.getAttribute("keyTimes").split(";").map(Number);
+        var dur = parseFloat(animEl.getAttribute("dur")) * 1000;
+        var begin = parseFloat(animEl.getAttribute("begin") || 0) * 1000;
+        animEl.remove();
+        animations.push({
+          el: el,
+          values: values,
+          keyTimes: keyTimes,
+          dur: dur,
+          begin: begin
+        });
+      });
+    });
+
+    (function loop() {
+      var now = performance.now() - t0;
+      for (var i = 0; i < animations.length; i++) {
+        var a = animations[i];
+        var t = now - a.begin;
+        if (t < 0) continue;
+        var phase = (t % a.dur) / a.dur;
+
+        var idx = a.keyTimes.findIndex(function (kt, ii, arr) {
+          return phase >= kt && phase <= (arr[ii + 1] || 1);
+        });
+        if (idx < 0) idx = a.keyTimes.length - 2;
+
+        var tA = a.keyTimes[idx],
+          tB = a.keyTimes[idx + 1];
+        var local = (phase - tA) / (tB - tA);
+        var from = a.values[idx],
+          to = a.values[idx + 1];
+
+        var da = from
+          .map(function (v, ii) {
+            return v + (to[ii] - v) * local;
+          })
+          .join(",");
+        a.el.setAttribute("stroke-dasharray", da);
+      }
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ===========================
+     Master RAF — compute state → write once
+     =========================== */
+  var running = false;
+
+  function tick() {
+    // 1) Scroll state
+    var y = w.scrollY || d.documentElement.scrollTop || 0;
+    var any = false;
+
+    for (var i = 0; i < sections.length; i++) {
+      var s = sections[i];
+
+      // near-viewport window prevents late start/snap
+      var near = y > s.top - s.vh * 1.5 && y < s.bottom + s.vh * 1.5;
+      if (!near) continue;
+      any = true;
+
+      var t = progressFor(s, y); // 0..1
+
+      if (s.type === "background") {
+        var range = s.height * (1 - s.bg.speed);
+        var targetY = (t - 0.5) * 2 * range;
+        s.bg.y += (targetY - s.bg.y) * SMOOTH;
+
+        var stbg = ensureState(s.bg.el);
+        stbg.scroll.tx = 0;
+        stbg.scroll.ty = s.bg.y;
+        stbg.scroll.hasScale = true;
+        stbg.scroll.scale = s.bg.scale;
+        mark(s.bg.el);
+      } else if (s.type === "move") {
+        var base = s.vh;
+        for (var j = 0; j < s.items.length; j++) {
+          var it = s.items[j];
+          var offset = (t - 0.5) * 2 * base * it.speed;
+          if (it.axis === "x") {
+            it.tx += (offset - it.tx) * SMOOTH;
+          } else {
+            it.ty += (offset - it.ty) * SMOOTH;
+          }
+
+          var st = ensureState(it.el);
+          st.scroll.tx = it.axis === "x" ? it.tx : 0;
+          st.scroll.ty = it.axis === "y" ? it.ty : 0;
+          st.scroll.hasScale = false;
+          mark(it.el);
+        }
+      } else {
+        // zoom — exact math preserved
+        for (var k = 0; k < s.items.length; k++) {
+          var iz = s.items[k];
+          var target = lerp(iz.from, iz.to, t);
+          iz.scale += (target - iz.scale) * SMOOTH;
+
+          var stz = ensureState(iz.el);
+          stz.scroll.tx = 0;
+          stz.scroll.ty = 0;
+          stz.scroll.hasScale = true;
+          stz.scroll.scale = iz.scale;
+          mark(iz.el);
+        }
+      }
+    }
+
+    // 2) Mouse state
+    if (mouseTargets.length && mouseShouldRun()) {
+      tX += (lX - tX) * friction;
+      tY += (lY - tY) * friction;
+      for (var m = 0; m < mouseTargets.length; m++) {
+        var tgt = mouseTargets[m];
+        var x = tX * tgt.speed * 20;
+        var y2 = tY * tgt.speed * 20;
+        var st = ensureState(tgt.el);
+        st.mouse.mx = x;
+        st.mouse.my = y2;
+        mark(tgt.el);
+      }
+    }
+
+    // 3) Write once
+    writeTransformsOnce();
+
+    // 4) Keep running while needed
+    if (any || (mouseTargets.length && mouseShouldRun()) || y !== lastScrollY) {
+      lastScrollY = y;
+      requestAnimationFrame(tick);
+    } else {
+      running = false;
+    }
+  }
+
+  function start() {
+    if (!running) {
+      running = true;
+      requestAnimationFrame(tick);
+    }
+  }
+
+  /* ===========================
+     Init & IO gating
+     =========================== */
+  function initScroll() {
+    qsa("[data-parallax]").forEach(setupSection);
+    io = new IntersectionObserver(
+      function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i];
+          for (var j = 0; j < sections.length; j++) {
+            if (sections[j].el === e.target) {
+              sections[j].active = e.isIntersecting;
+              break;
+            }
+          }
+        }
+        start();
+      },
+      { root: null, rootMargin: "100% 0px 100% 0px", threshold: 0 }
+    );
+
+    sections.forEach(function (s) {
+      io.observe(s.el);
+    });
+    measure();
+  }
+
+  // Optional: stabilize zoom center if not set in CSS
+  function ensureZoomTransformOrigin() {
+    qsa('[data-parallax][data-parallax="zoom"] [data-parallax-item]').forEach(
+      function (el) {
+        if (!el.style.transformOrigin)
+          el.style.transformOrigin = "center center";
+      }
+    );
+  }
+
+  // Events
+  w.addEventListener("scroll", start, { passive: true });
+  w.addEventListener(
+    "resize",
+    function () {
+      measure();
+      start();
+    },
+    { passive: true }
+  );
+
+  d.addEventListener("DOMContentLoaded", function () {
+    initScroll();
+    initMouse();
+    initSmil();
+    ensureZoomTransformOrigin();
+    start();
+  });
+})();
+    
+</script>
+
+</body>
+
+</html>

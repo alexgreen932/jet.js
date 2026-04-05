@@ -1,0 +1,1 @@
+.menu{position:fixed;top:0;bottom:0;left:0;overflow:auto;width:300px}.menu a{padding:5px 8px;border-bottom:dashed 1px #989eb6}.menu a:last-child{border-bottom-width:0}.menu a:hover{background:rgba(0,0,0,0.1)}.menu a.isActive{background:#fff}

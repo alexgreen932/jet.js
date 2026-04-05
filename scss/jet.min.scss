@@ -1,0 +1,88 @@
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+@import "_vars.scss";
+ 
+
+@import "core/_base.scss";
+@import "core/_behavior.scss";
+@import "core/_borders.scss";
+@import "core/_colors.scss";//_not used in the theme
+@import "core/colors-legacy";
+@import "core/grid";//todo!!! rm then
+@import "core/grid-new";
+@import "core/_grid-legacy.scss";//todo remeve then
+@import "core/width";
+@import "core/_flex.scss";
+@import "core/_padding-margin.scss";
+@import "core/_sizes.scss";
+@import "core/_ratio.scss";
+@import "core/_images.scss";
+@import "core/_positions.scss";
+@import "core/_borders.scss";
+@import "core/_boxes.scss";
+@import "core/_ui-effects.scss";
+@import "core/_adaptive.scss";
+@import "core/_utilites.scss";
+@import "core/images";
+@import "core/_mobile.scss";
+@import "core/_nav.scss";
+@import "core/gradients";
+@import "core/list";
+@import "core/misc";
+
+@import "size/font-size";
+@import "size/height";
+// @import "size";
+
+//utils
+@import "utils/cursor";
+
+//new animation
+@import "animation-simpifyed/fade";
+
+//legasy
+@import "animation/index";
+@import "effects/_text-effects.scss";
+//_todo add animation support
+
+//new components
+@import "coms26/loader";
+// @import "coms26/editor";
+@import "coms26/docs-demo";
+
+
+//jet.js components
+@import "form/default-styles";
+
+
+//extras, not included in base jet.css
+
+//old components move to coms 26 and delete depricated
+@import "components/buttons";
+
+//depricated<<<<<<
+// @import "components/modal";
+// @import "components/modal-legasy";
+// @import "components/loaders";
+// @import "components/small-components";
+// @import "components/table";
+// @import "components/tabs";
+// @import "components/card";
+// @import "components/tips";
+// @import "components/info-box";
+// @import "components/accordion";
+// @import "components/dot-menu";
+// @import "components/logo";
+// @import "components/lightbox";
+// @import "components/slideshow";
+// @import "components/title";
+// @import "components/new-modals";
+// @import "components/menu";
+// @import "components/drop-inner";
+// @import "components/bg_video";
+
+
+//engine only
+// @import "engine/index";
+// @import "animation/index.scss";
+
