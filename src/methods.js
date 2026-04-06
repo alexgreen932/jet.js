@@ -12,7 +12,11 @@ export { _data_update_checker } from './vdom/_data_update_checker.js';
 export { _preProcessor } from './processes-before/_preProcessor.js';
 export { _jfor } from './processes-before/_jfor.js';
 export { _if } from './processes-before/_if.js';
-export { _show } from './processes-before/_show.js';
+
+export * from './processes-before/_show.js';
+// export { _showBefore, _showAfter } from './processes-both/_show.js';
+// export * from './processes-both/_show.js';
+
 export { _interpolation } from './processes-before/_interpolation.js';
 export { _attrs } from './processes-before/_attrs.js';
 export { _propsToData } from './processes-before/_propsToData.js';
@@ -42,7 +46,7 @@ export { _toggle } from './globals/_toggle.js';
 
 //goodies
 export { $fetch } from './goodies/fetch.js';
-// export * from './goodies/small-methods.js';
+export * from './goodies/small-methods.js';
 // export { $filterFields } from './goodies/small-methods.js';
 export { _filterFields } from './goodies/filterFields.js';
 
@@ -61,4 +65,5 @@ export { __ } from './utils/__.js';
 // import { shortList } from "../helpers/shortList.js";
 // import _proxy from './utils/_proxy';
 // import _proxy from './methods/_proxy';
+
 

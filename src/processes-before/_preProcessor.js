@@ -8,6 +8,7 @@ export function _preProcessor(tpl) {
   tpl = this._attrs(tpl);
   tpl = this._dynamicTag(tpl);
   tpl = this._if(tpl);
+  // tpl = this._show(tpl);
   tpl = this._show(tpl);
   tpl = this._cs(tpl);
   tpl = this._st(tpl);

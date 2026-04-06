@@ -454,6 +454,7 @@ function jet(args) {
 
         // real DOM listener, only once
         // this._initShow?.();
+        this._showAfter();
         this._initRendered = true;
 
         if (typeof this.__onUpdated === "function") {

@@ -1,99 +1,121 @@
 import { evaluateCondition } from "./evaluateCondition.js";
 
+/**
+ * Preprocessor stage
+ *
+ * First render:
+ * - if condition is true -> keep element, add animation-in class
+ * - if condition is false -> remove immediately, no animation
+ *
+ * Later renders:
+ * - do not remove here
+ * - let _showAfter() handle animation-out on real DOM
+ */
 export function _show(tpl) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(tpl, "text/html");
   const items = doc.querySelectorAll("[j-show]");
 
-  // Если элементов с j-show нет, возвращаем шаблон без изменений
   if (!items.length) return tpl;
 
-  // Определяем, первая ли это отрисовка (до первой отрисовки this._initRendered не установлен)
   const firstRender = !this._initRendered;
   console.log("firstRender:", firstRender);
 
-  items.forEach((item, index) => {
-    // Получаем условие из атрибута j-show
+  items.forEach(item => {
     const raw = (item.getAttribute("j-show") || "").trim();
-    // Получаем тип анимации (по умолчанию — fade)
+
     let anime = (item.getAttribute("anime") || "fade").trim();
     if (!anime) anime = "fade";
-    // Проверяем, принадлежит ли элемент к группе анимаций
-    let grouped = (item.getAttribute("anime-group") || "").trim();
-    if (!grouped) grouped = false;
 
-    // Формируем имена классов для входа и выхода
+    const grouped = item.hasAttribute("anime-group");
     const inc = `${anime}-in`;
-    const out = `${anime}-out`;
-
-    // Вычисляем условие видимости элемента
     const ok = evaluateCondition(this, raw);
 
-    // Запускаем анимацию в зависимости от результата условия
-    if (ok) {
-      doAnime(item, "in", inc, firstRender, grouped);
-    } else {
-      doAnime(item, "out", out, firstRender, grouped);
+    // first render only
+    if (firstRender) {
+      if (ok) {
+        if (grouped) {
+          // optional small delay for grouped items
+          item.setAttribute("data-show-delay", "1");
+        }
+
+        // setTimeout(() => {
+        // }, 500);
+        item.classList.add(inc);
+      } else {
+        if (firstRender) {
+          item.classList.add("j-hidden");
+          // item.remove();
+          // item.style.display = "none";
+        }
+      }
     }
-    console.log("firstRender AFTER:", firstRender);
   });
 
   return doc.body.innerHTML;
 }
 
 /**
- * Функция для запуска анимации показа/скрытия элемента
- * @param {Element} item — элемент DOM, к которому применяется анимация
- * @param {"in" | "out"} type — тип анимации: "in" — показать, "out" — скрыть
- * @param {string} anime — имя класса анимации (например, "fade-in")
- * @param {boolean} firstRender — флаг первой отрисовки
- * @param {boolean|string} grouped — флаг группировки анимаций (если true — добавляем задержки)
+ * Real DOM stage
+ *
+ * Later renders only:
+ * - if condition is true -> play animation in
+ * - if condition is false -> play animation out, then remove element
  */
-function doAnime(item, type, anime, firstRender, grouped) {
-  // При первой отрисовке:
-  // - если элемент должен быть виден, добавляем класс анимации и убираем его через 500 мс
-  // - если скрыт, сразу устанавливаем display: none
-  if (firstRender) {
-    if (type === "in") {
-      // Добавляем класс анимации входа
-      item.classList.add(anime);
-      // Через 500 мс убираем класс, чтобы не накапливать стили
-      setTimeout(() => {
-        item.classList.remove(anime);
-      }, 500);
-    } else {
-      // При первой отрисовке скрытый элемент сразу скрываем без анимации
-      item.style.display = "none";
-    }
-  } else {
-    // При повторной отрисовке (виртуальный DOM):
-    // - для показа: добавляем класс анимации, убираем через 500 мс, устанавливаем display: block
-    // - для скрытия: добавляем класс анимации выхода, через 500 мс скрываем и убираем класс
-    if (type === "in") {
+export function _showAfter() {
+  const items = this.querySelectorAll("[j-show]");
+  const firstRender = !this._initRendered;
+
+  // first render was already handled in _show()
+  if (firstRender) return;
+
+  items.forEach(item => {
+    const raw = (item.getAttribute("j-show") || "").trim();
+
+    let anime = (item.getAttribute("anime") || "fade").trim();
+    if (!anime) anime = "fade";
+
+    const grouped = item.hasAttribute("anime-group");
+    const inc = `${anime}-in`;
+    const out = `${anime}-out`;
+
+    const ok = evaluateCondition(this, raw);
+
+    // clean old classes first
+    item.classList.remove(inc, out);
+
+    if (ok) {
+      const doIn = () => {
+        // force reflow so animation restarts
+        void item.offsetWidth;
+        item.classList.add(inc);
+        item.classList.remove("j-hidden");
+
+        setTimeout(() => {
+          item.classList.remove(inc);
+          item.classList.remove("j-hidden");
+        }, 500);
+      };
+
       if (grouped) {
-        // Для grouped элементов добавляем задержку 500 мс перед показом
-        setTimeout(() => {
-          item.style.display = "block";
-          item.classList.add(anime);
-          setTimeout(() => {
-            item.classList.remove(anime);
-          }, 500);
-        }, 500);
+        setTimeout(doIn, 500);
       } else {
-        // Обычный случай: сразу показываем с анимацией
-        item.style.display = "block";
-        item.classList.add(anime);
-        setTimeout(() => {
-          item.classList.remove(anime);
-        }, 500);
+        doIn();
       }
     } else {
-      // Для скрытия всегда добавляем анимацию выхода
-      item.classList.add(anime);
+      // play out, then remove
+      void item.offsetWidth;
+      item.classList.add(out);
+          item.classList.add("j-hidden");
+
       setTimeout(() => {
-        item.classList.remove(anime);
-        item.style.display = "none"; // Скрываем после завершения анимации
+        // item.remove();
+
+        // item.style.display = "none";
+        item.classList.remove(out);
+          item.classList.add("j-hidden");
       }, 500);
+      // this.$s();
     }
-  }
+  });
 }
