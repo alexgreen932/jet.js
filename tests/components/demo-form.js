@@ -20,14 +20,14 @@ jet({
   },
   tpl: html`
     <div class="w-container-c g-1">
-        <h1 class="fs-12">No need to create form, use componrnt jet-form and just add necessary fiels(more info in docs... coming soon)</h1>
+        <h1 class="fs-12">No need to create form, use component jet-form and just add necessary fields as props(more info in docs... coming soon)</h1>
       <div class="br-5 p-1 {content.bg content.fs}">
         <h3 style="color:{content.h_col}">{content.title}</h3>
         <p>{content.text}</p>
       </div>
       <div class="b-grey-l4 br-5 p-1">
         <jet-form
-          title="Ready Form, just add props:)"
+          title="Form, just add props😄"
           d-obj="content"
           d-fields="fields"
         ></jet-form>
