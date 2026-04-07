@@ -1,1 +1,1 @@
-
+.menu{position:fixed;top:0;bottom:0;left:0;overflow:auto;width:300px}.menu a{padding:5px 8px;border-bottom:dashed 1px #989eb6}.menu a:last-child{border-bottom-width:0}.menu a:hover{background:rgba(0,0,0,0.1)}.menu a.isActive{background:#fff}.tabs{border-bottom:1px solid #bfcfe6;margin-bottom:1rem}.tabs li{border-radius:5px 5px 0 0;padding:5px 20px}.tabs li:hover{background:rgba(0,0,0,0.1)}.tabs li.isActive{background:#bfcfe6}
