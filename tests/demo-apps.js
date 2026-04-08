@@ -28,13 +28,10 @@ jet({
       <div j-if="current=='Toggle'">
         <h1>Example of Jet “Goodies _tg()”</h1>
         <p>Goodies are small global helper methods built into the core of Jet.js.<br/>
-
-The main difference from regular functions is that they are part of the framework itself, so they can be used directly inside template events, for example:<br/>
-on-click="_tg()"<br/>
-
-Under the hood, they belong to the component instance (like this._goodieName()), so you don’t need to import or define them manually.<br/>
-
-By convention, all goodies start with an underscore (_), which makes them easy to recognize and avoids naming conflicts.</p>
+        the main difference from regular functions is that they are part of the framework itself, so they can be used directly inside template events, for example:<br/>
+        on-click="_tg()"<br/>
+        Under the hood, they belong to the component instance (like this._goodieName()), so you don’t need to import or define them manually.<br/>
+        By convention, all goodies start with an underscore (_), which makes them easy to recognize and avoids naming conflicts.</p>
       <demo-tg></demo-tg>
       </div>
       <div>
@@ -43,7 +40,7 @@ By convention, all goodies start with an underscore (_), which makes them easy t
 
     </div>
     <div class="menu p-1 b-blue-grey-l5 fd-c ai-c">
-    <img src="../img/logo.svg" width=200 />
+    <img src="../img/logo.png" width=200 />
       <j-for data="menu">
       <a class="w-100 {isActive([i])}" href="#" on-click.prevent="onClick([$e],[i])"/>[e]</a>
       </j-for>

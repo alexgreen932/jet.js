@@ -13,7 +13,7 @@ jet({
   },
   tpl: html`
     <div class="w-container-c ai-c g-1 b-white br-5 p-2 bs-3">
-      <img src="img/logo.svg" width="300"/>
+      <img src="img/logo.png" width="300"/>
       <h1 class="e-flame">Jet.Js</h1>
       <div class="gr-3 g-1">
       <j-for data="menu">
