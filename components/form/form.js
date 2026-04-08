@@ -13,9 +13,10 @@ import "./field-icons.js";
 
 import "./field-richtext.js";
 
+
 /**
  * ALPHA version
- * some options are experemental
+ * some options are experimental
  * some should be improved
  * some deleted
  */
@@ -23,25 +24,30 @@ jet({
   name: "jet-form",
   data: {
     fieldsProcessed: [],
-    sortedFields: [],
-    obj: null, // points to el[path] like el.st
+    obj: null,
     show: true
   },
-  // save: [["show", "save_key_toogle_form"]],
+
   tpl: html`
     <div class="jf-root form-box {cls}">
       <h3 j-if="title" class="form-title">
         <span j-if="!toggle">{title}</span>
-        <span j-if="toggle" class="fg-1 j-click" on-click="show=!show">{title}</span>
+
+        <span j-if="toggle" class="fg-1 j-click" on-click="show=!show">
+          {title}
+        </span>
+
         <span j-if="toggle" on-click="show=!show">
           <i j-if="show" class="fa-solid fa-chevron-up"></i>
           <i j-if="!show" class="fa-solid fa-chevron-down"></i>
         </span>
       </h3>
+
       <div j-if="noToggled()" class="jet-form-fields">
         <j-for data="fieldsProcessed">
           <div class="form-field [type]">
-            <label j-if="[$title]" for="[key]">[title]</label>
+            <label j-if="[title]" for="[key]">[title]</label>
+
             <j-tag
               type="[type]"
               prefix="field-"
@@ -57,85 +63,122 @@ jet({
 
   methods: {
     noToggled() {
-      if (!this.toggle) return true; //skip if no props toggle
-
-      if (this.show) {
-        return true;
-      } else {
-        return false;
-      }
+      if (!this.toggle) return true;
+      return !!this.show;
     },
-    addMissedFields() {
-      //todo!!! refactor
-      // this.fieldsProcessed = this.fields;
 
-      let existingFields = [];
-      //form may have no fields
-      if (this.fields) {
-        existingFields = this.fields.map(v => {
-          return v.key;
-        });
-        //console.log("existingFields:", existingFields);
+    /**
+     * Build final array of fields for render.
+     *
+     * Modes:
+     * 1. selected -> render only selected fields existing in object
+     * 2. fields    -> render configured fields + missed object keys as default inputs
+     * 3. none      -> render all object keys as default inputs
+     */
+    buildFields() {
+      if (!this.obj || typeof this.obj !== "object") {
+        this.fieldsProcessed = [];
+        return;
       }
 
-      const fields = [];
+      const objKeys = Object.keys(this.obj);
+      const processed = [];
 
-      const keys = Object.keys(this.obj);
+      // ---------------------------------------
+      // MODE 1: selected
+      // render ONLY selected fields
+      // ---------------------------------------
+      if (Array.isArray(this.selected) && this.selected.length) {
+        this.selected.forEach(field => {
+          if (!field?.key) return;
+          if (!objKeys.includes(field.key)) return;
 
-      keys.forEach(k => {
-        if (existingFields.includes(k)) {
-          this.fields.forEach(f => {
-            if (f.key === k) {
-              fields.push(f);
-            }
+          processed.push({
+            title: field.title ?? field.key,
+            key: field.key,
+            type: field.type ?? "input",
+            ops: field.ops ?? ""
           });
-        } else {
-          let field = {
-            title: k,
-            key: k,
-            type: "input"
-          };
-          fields.push(field);
-        }
+        });
+
+        this.fieldsProcessed = processed;
+        return;
+      }
+
+      // ---------------------------------------
+      // MODE 2: fields
+      // render configured fields if object has such key
+      // then auto-add missed keys from object
+      // ---------------------------------------
+      if (Array.isArray(this.fields) && this.fields.length) {
+        const existingConfiguredKeys = [];
+
+        this.fields.forEach(field => {
+          if (!field?.key) return;
+          if (!objKeys.includes(field.key)) return;
+
+          existingConfiguredKeys.push(field.key);
+
+          processed.push({
+            title: field.title ?? field.key,
+            key: field.key,
+            type: field.type ?? "input",
+            ops: field.ops ?? ""
+          });
+        });
+
+        // add missed keys from object as simple input fields
+        objKeys.forEach(key => {
+          if (existingConfiguredKeys.includes(key)) return;
+
+          processed.push({
+            title: key,
+            key,
+            type: "input",
+            ops: ""
+          });
+        });
+
+        this.fieldsProcessed = processed;
+        return;
+      }
+
+      // ---------------------------------------
+      // MODE 3: no fields at all
+      // render all object keys as simple inputs
+      // ---------------------------------------
+      objKeys.forEach(key => {
+        processed.push({
+          title: key,
+          key,
+          type: "input",
+          ops: ""
+        });
       });
 
-      this.fieldsProcessed = fields;
-    },
-    filterExistingKeys(){
-      const fields = [];
-
-      const keys = Object.keys(this.obj);
-
-      this.all.forEach(field => {
-        //console.log("value:", field.key);
-        if (keys.includes(field.key)) {
-          fields.push(field);
-        }
-      });
-      return fields;
-    },
-
-
+      this.fieldsProcessed = processed;
+    }
   },
 
   mount() {
-    //console.log('this.all:', this.all);
-    //if has a bungle(d-all=this.all) of fields but should use only fields which object has keys - then via d-all
-    if (this.all) {
-      this.fields = this.filterExistingKeys();
-    }
-    this.addMissedFields();
-    if (this.toggled) {
+    this.buildFields();
+
+    // was: this.toggled
+    // but in template/methods you use "toggle"
+    if (this.toggle) {
       this.show = false;
     }
-
   },
+
   css: `
-  .form-title{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-    .form-title i{font-size:1rem;cursor:pointer}
+    .form-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center
+    }
+    .form-title i{
+      font-size:1rem;
+      cursor:pointer
+    }
   `
 });
